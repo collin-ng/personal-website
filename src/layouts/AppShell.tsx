@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { MobileNavToggle } from '../components/MobileNavToggle'
 import { PathBar } from '../components/PathBar'
 import { Sidebar } from '../components/Sidebar'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 const SIDEBAR_WIDTH = 268
 
@@ -20,15 +21,18 @@ export function AppShell() {
         className="flex h-dvh min-h-0 flex-col overflow-hidden border-0 bg-transparent lg:h-[calc(100dvh-2rem)] lg:rounded-[22px] lg:border lg:border-border-subtle lg:bg-bg-content lg:shadow-[var(--shadow-soft)]"
       >
         {/* Desktop chrome */}
-        <div className="hidden h-11 shrink-0 items-center gap-3 border-b border-border-subtle px-4 lg:flex">
-          <div className="flex items-center gap-1.5" aria-hidden="true">
-            <span className="size-3 rounded-full bg-[#FF5F57]" />
-            <span className="size-3 rounded-full bg-[#FEBC2E]" />
-            <span className="size-3 rounded-full bg-[#28C840]" />
+        <div className="hidden h-11 shrink-0 items-center justify-between border-b border-border-subtle px-4 lg:flex">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5" aria-hidden="true">
+              <span className="size-3 rounded-full bg-[#FF5F57]" />
+              <span className="size-3 rounded-full bg-[#FEBC2E]" />
+              <span className="size-3 rounded-full bg-[#28C840]" />
+            </div>
+            <span className="text-[13px] font-medium text-text-secondary">
+              Portfolio
+            </span>
           </div>
-          <span className="text-[13px] font-medium text-text-secondary">
-            Portfolio
-          </span>
+          <ThemeToggle />
         </div>
 
         <div className="relative flex min-h-0 flex-1">
@@ -67,9 +71,10 @@ export function AppShell() {
                 open={sidebarOpen}
                 onToggle={() => setSidebarOpen((v) => !v)}
               />
-              <span className="text-sm font-medium text-text-primary">
+              <span className="flex-1 text-sm font-medium text-text-primary">
                 Portfolio
               </span>
+              <ThemeToggle />
             </header>
 
             <PathBar />

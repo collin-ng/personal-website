@@ -7,9 +7,9 @@
 
 ## 1. Product vibe (one sentence)
 
-A **macOS Finder-style personal OS**: clean, airy, slightly playful — not corporate, not dark-cyber, not “AI purple gradient.”
+A **macOS Finder-style personal OS**: calm, a little moody, slightly playful — not sterile white SaaS, not dark-cyber, not “AI purple gradient.”
 
-Think: **Finder’s structure + Apple’s softness + a light sky-blue tint.**
+Think: **Finder’s structure + Apple’s softness + a deeper sky / dusk-blue tint** (still clearly a *light* theme).
 
 ---
 
@@ -26,44 +26,62 @@ Think: **Finder’s structure + Apple’s softness + a light sky-blue tint.**
 ### Change from the user’s dark Finder screenshot
 | Finder screenshot | This site |
 |-------------------|-----------|
-| Dark charcoal sidebar | **Light** surface with **blue tint** |
-| White icons on dark | Soft dark text on light blue-gray |
+| Dark charcoal sidebar | **Light-but-deeper** blue-tinted surfaces |
+| White icons on dark | Soft dark text on dusty blue-gray |
 | Medium rounded corners | **Rounder** corners everywhere |
 | System blue selection on dark | Soft blue selection pill on light |
 
-**Do not** copy the dark theme. The screenshot is for **layout language only**.
+**Do not** copy the full dark theme. The screenshot is for **layout language only**.
 
 ---
 
-## 3. Color system — light blue tint
+## 3. Color system — deeper light blue tint (anti-sterile)
 
-Use a cool, airy palette. Prefer CSS variables (or Tailwind theme tokens mapped to these).
+Still a **light** theme — just less icy / hospital-white. Aim for **overcast sky / soft denim paper**, not pure white UI.
 
-### Core tokens
+### Core tokens (current target)
 
 | Token | Role | Suggested value |
 |-------|------|-----------------|
-| `--bg-app` | Page / window background | `#E8F1FA` (very light blue-gray) |
-| `--bg-sidebar` | Sidebar fill | `#F2F7FC` (lighter than app, still blue-tinted) |
-| `--bg-content` | Main pane card / content surface | `#FFFFFF` with slight blue hint `#FBFDFF` |
-| `--bg-hover` | Row hover | `rgba(37, 99, 235, 0.06)` |
-| `--bg-selected` | Active nav item | `rgba(37, 99, 235, 0.12)` |
-| `--text-primary` | Body / labels | `#1C2430` (soft near-black, not pure black) |
-| `--text-secondary` | Muted labels / section headers | `#5B6B7C` |
-| `--text-active` | Selected nav label | `#1D4ED8` (clear blue, like Finder’s “Pictures”) |
-| `--border-subtle` | Dividers, sidebar edge | `rgba(28, 55, 90, 0.08)` |
-| `--accent` | Links, focus, primary actions | `#2563EB` |
-| `--accent-soft` | Chips, badges | `#DBEAFE` |
-| `--icon` | Default icons | `#64748B` |
-| `--icon-active` | Selected icons | `#2563EB` |
-| `--shadow` | Soft elevation | `0 8px 30px rgba(37, 99, 235, 0.08)` |
+| `--bg-app` | Page / outer wash | `#C9D9EC` (deeper sky blue-gray) |
+| `--bg-sidebar` | Sidebar fill | `#D7E4F2` (mid-light blue tint) |
+| `--bg-content` | Main pane surface | `#EAF1F8` (content is *not* pure white) |
+| `--bg-elevated` | Cards / raised panels | `#F4F8FC` (slightly lighter than content, still tinted) |
+| `--bg-hover` | Row hover | `rgba(30, 64, 175, 0.10)` |
+| `--bg-selected` | Active nav item | `rgba(30, 64, 175, 0.16)` |
+| `--text-primary` | Body / labels | `#152033` |
+| `--text-secondary` | Muted labels / path | `#4A5D73` |
+| `--text-active` | Selected nav label | `#1E40AF` |
+| `--border-subtle` | Dividers, edges | `rgba(21, 40, 72, 0.12)` |
+| `--accent` | Links, focus, primary actions | `#1D4ED8` |
+| `--accent-soft` | Chips, badges | `#C7D7F0` |
+| `--icon` | Default icons | `#5A6F88` |
+| `--icon-active` | Selected icons | `#1D4ED8` |
+| `--shadow` | Soft elevation | `0 10px 36px rgba(30, 58, 110, 0.14)` |
+
+### Previous (too pale / sterile) — do not regress to these
+| Token | Old value |
+|-------|-----------|
+| `--bg-app` | `#E8F1FA` |
+| `--bg-sidebar` | `#F2F7FC` |
+| `--bg-content` | `#FBFDFF` / near-white |
 
 ### Rules
-- Backgrounds should read as **“morning sky / ice blue”**, not gray and not saturated baby-blue.
-- Never pure `#000` text or pure neon blue.
+- Backgrounds should read as **“soft dusk sky / denim wash”**, not white dashboard, not navy dark mode.
+- **Content pane is tinted** — avoid pure `#FFFFFF` large surfaces; use `--bg-content` / `--bg-elevated`.
+- Slightly stronger borders + shadow than the pale version so the window feels grounded.
+- Never pure `#000` text or neon blue.
 - No purple/pink AI gradients.
-- No heavy glassmorphism (blur stacks). A little translucency is OK; keep it simple.
-- Selection = **rounded pill**, blue-tinted fill, blue label — similar energy to Finder’s selected “Pictures,” but on light UI.
+- No heavy glassmorphism.
+- Selection = **rounded pill**, blue-tinted fill, blue label — Finder energy on a light UI.
+
+### Making it feel less sterile (beyond hex codes)
+Palette depth alone helps, but sterility also comes from empty UI. Layer these when ready:
+1. **Contrast hierarchy** — outer app darker than sidebar; sidebar slightly different from content; cards elevated.
+2. **Texture (optional, subtle)** — very light noise or soft radial wash on `--bg-app` only; opacity ~2–4%, never busy.
+3. **One warm accent** (optional) — e.g. soft amber for “WIP” chips only (`#F5E6C8` bg / `#8A6A2F` text) so everything isn’t monochrome blue.
+4. **Real content** — photos, project screenshots, short voicey copy beat any color tweak.
+5. **Do not** fix sterility with more gradients, blobs, or random illustrations.
 
 ### Optional traffic lights (decorative)
 If used in a window chrome bar:
@@ -71,6 +89,48 @@ If used in a window chrome bar:
 - Minimize `#FEBC2E`
 - Zoom `#28C840`  
 These are **visual only** (not real window controls).
+
+### Dark mode tokens (class: `html.dark`)
+Still blue-tinted — **night sky / blue charcoal**, not pure black or generic gray dark mode.
+
+| Token | Dark value |
+|-------|------------|
+| `--bg-app` | `#0F1724` |
+| `--bg-sidebar` | `#152033` |
+| `--bg-content` | `#1A2740` |
+| `--bg-elevated` | `#22314D` |
+| `--bg-hover` | `rgba(96, 165, 250, 0.10)` |
+| `--bg-selected` | `rgba(96, 165, 250, 0.18)` |
+| `--text-primary` | `#E8EEF8` |
+| `--text-secondary` | `#9AADC4` |
+| `--text-active` | `#93C5FD` |
+| `--border-subtle` | `rgba(148, 180, 220, 0.14)` |
+| `--accent` | `#60A5FA` |
+| `--accent-soft` | `#1E3A5F` |
+| `--icon` | `#8FA3BB` |
+| `--icon-active` | `#93C5FD` |
+| `--shadow` | `0 12px 40px rgba(0, 0, 0, 0.45)` |
+
+### Theme toggle (chrome bar)
+- **Control:** iOS-style switch (pill track + white thumb) with static label **“Dark Mode”** (title case, two words — system-settings style, not “Darkmode”)
+- **Label style:** `12px`, medium weight, `--text-secondary`; sits to the **left** of the switch
+- **Placement (desktop):** left cluster = traffic lights + “Portfolio”; right = Dark Mode control
+- **Placement (mobile):** “Portfolio” near menu; Dark Mode control on the right
+- **Behavior:** toggles `light` / `dark`; persists in `localStorage` (`portfolio-theme`); respects `prefers-color-scheme` on first visit
+- **On (dark):** track `#34C759` (iOS green); thumb slides right
+- **Off (light):** track `#D1D5DB` (light) / slightly darker gray in dark UI; thumb slides left
+- **A11y:** whole control is one `role="switch"` button; `aria-label="Dark Mode"`; `aria-checked` reflects state
+- Implementation: `ThemeProvider` + `ThemeToggle`; tokens switch via `html.dark` CSS variables
+
+### When to use DESIGN.md vs chat (for features like this)
+
+| Change type | Where it goes | Then |
+|-------------|---------------|------|
+| Colors, radii, toggle look, placement | **`DESIGN.md`** (spec) | Prompt or code to implement |
+| Working toggle, routing, RAG, data | **Code** (chat/agent OK) | Optional note in DESIGN.md if visual |
+| One-off copy tweak | Chat is fine | — |
+
+**Rule:** Visual system → DESIGN.md. Interactive feature → implement in code (chat is fine for *how*, doc for *look*).
 
 ---
 

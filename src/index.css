@@ -5,20 +5,41 @@
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  --color-bg-app: #e8f1fa;
-  --color-bg-sidebar: #f2f7fc;
-  --color-bg-content: #fbfdff;
-  --color-bg-hover: rgba(37, 99, 235, 0.06);
-  --color-bg-selected: rgba(37, 99, 235, 0.12);
-  --color-text-primary: #1c2430;
-  --color-text-secondary: #5b6b7c;
-  --color-text-active: #1d4ed8;
-  --color-border-subtle: rgba(28, 55, 90, 0.08);
-  --color-accent: #2563eb;
-  --color-accent-soft: #dbeafe;
-  --color-icon: #64748b;
-  --color-icon-active: #2563eb;
-  --shadow-soft: 0 8px 30px rgba(37, 99, 235, 0.08);
+  /* Deeper light-blue tint — still a light theme, less sterile/pale */
+  --color-bg-app: #c9d9ec;
+  --color-bg-sidebar: #d7e4f2;
+  --color-bg-content: #eaf1f8;
+  --color-bg-elevated: #f4f8fc;
+  --color-bg-hover: rgba(30, 64, 175, 0.1);
+  --color-bg-selected: rgba(30, 64, 175, 0.16);
+  --color-text-primary: #152033;
+  --color-text-secondary: #4a5d73;
+  --color-text-active: #1e40af;
+  --color-border-subtle: rgba(21, 40, 72, 0.12);
+  --color-accent: #1d4ed8;
+  --color-accent-soft: #c7d7f0;
+  --color-icon: #5a6f88;
+  --color-icon-active: #1d4ed8;
+  --shadow-soft: 0 10px 36px rgba(30, 58, 110, 0.14);
+}
+
+/* Dark mode — blue-tinted night, not pure black */
+html.dark {
+  --color-bg-app: #0f1724;
+  --color-bg-sidebar: #152033;
+  --color-bg-content: #1a2740;
+  --color-bg-elevated: #22314d;
+  --color-bg-hover: rgba(96, 165, 250, 0.1);
+  --color-bg-selected: rgba(96, 165, 250, 0.18);
+  --color-text-primary: #e8eef8;
+  --color-text-secondary: #9aadc4;
+  --color-text-active: #93c5fd;
+  --color-border-subtle: rgba(148, 180, 220, 0.14);
+  --color-accent: #60a5fa;
+  --color-accent-soft: #1e3a5f;
+  --color-icon: #8fa3bb;
+  --color-icon-active: #93c5fd;
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 html,
@@ -34,6 +55,9 @@ body {
   background-color: var(--color-bg-app);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 200ms ease-out,
+    color 200ms ease-out;
 }
 
 *:focus-visible {
