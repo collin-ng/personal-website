@@ -15,6 +15,7 @@ export function AppShell() {
   const breadcrumb = getBreadcrumbLabels(pathname)
   const contentTitle =
     breadcrumb.length > 0 ? breadcrumb.join(' / ') : 'Portfolio'
+  const flushBody = pathname === '/recruiters/experience'
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -70,7 +71,14 @@ export function AppShell() {
 
           {/* Content desk + inner window */}
           <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-bg-sidebar p-3 md:p-4">
-            <ContentWindow title={contentTitle}>
+            <ContentWindow
+              title={contentTitle}
+              bodyClassName={
+                flushBody
+                  ? 'flex min-h-0 flex-1 flex-col overflow-hidden p-0'
+                  : undefined
+              }
+            >
               <Outlet />
             </ContentWindow>
           </div>

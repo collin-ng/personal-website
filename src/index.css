@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Match ThemeProvider's html.dark class (not prefers-color-scheme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -10,6 +13,8 @@
   --color-bg-sidebar: #d7e4f2;
   --color-bg-content: #eaf1f8;
   --color-bg-elevated: #f4f8fc;
+  --color-bg-stripe: #edf2f8;
+  --color-bg-header: #e8eef5;
   --color-bg-hover: rgba(30, 64, 175, 0.1);
   --color-bg-selected: rgba(30, 64, 175, 0.16);
   --color-text-primary: #152033;
@@ -29,6 +34,8 @@ html.dark {
   --color-bg-sidebar: #152033;
   --color-bg-content: #1a2740;
   --color-bg-elevated: #22314d;
+  --color-bg-stripe: rgba(148, 180, 220, 0.08);
+  --color-bg-header: #1a2740;
   --color-bg-hover: rgba(96, 165, 250, 0.1);
   --color-bg-selected: rgba(96, 165, 250, 0.18);
   --color-text-primary: #e8eef8;

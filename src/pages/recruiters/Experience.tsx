@@ -1,10 +1,5 @@
-import { PlaceholderPage } from '../PlaceholderPage'
+import { ExperienceFinder } from '../../components/experience/ExperienceFinder'
 
 export function ExperiencePage() {
-  return (
-    <PlaceholderPage
-      title="Experience"
-      description="Detailed work history and impact. Content coming soon."
-    />
-  )
+  return <ExperienceFinder />
 }
