@@ -13,7 +13,7 @@ export const navTree: NavItem[] = [
       { id: 'recruiters-resume', label: 'Resume', path: '/recruiters/resume' },
       {
         id: 'recruiters-experience',
-        label: 'Work Experience',
+        label: 'Experience and Education',
         path: '/recruiters/experience',
       },
       {

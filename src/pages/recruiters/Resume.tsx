@@ -27,7 +27,7 @@ export function ResumePage() {
           className="size-[120px] rounded-[22px] shadow-[var(--shadow-soft)] md:size-[140px]"
         />
         <h1 className="mt-5 text-[32px] font-semibold tracking-tight text-text-primary md:text-[36px]">
-          My Resume's
+          My Resumes
         </h1>
       </div>
 

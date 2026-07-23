@@ -23,7 +23,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Apr 2023',
     end: 'Apr 2025',
     duration: '2 yrs 1 mo',
-    location: 'Melbourne, Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     workMode: 'Hybrid',
     summary:
       'At Insignia Financial Ltd, a leading provider of superannuation and investment management services in Australia, I was responsible for processing beneficiary checks and conducting accurate data entry across financial records. I verified and cross-checked sensitive information to ensure data integrity and compliance, while also contacting superannuation holders to assist with administrative tasks and clarify documentation. Additionally, I maintained detailed records and performed updates in internal systems with a high level of accuracy.',
@@ -38,7 +38,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Jan 2021',
     end: 'Dec 2022',
     duration: '2 yrs',
-    location: 'Melbourne, Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     summary:
       'As a Customer Service Representative in an inbound call center, I seamlessly integrated sales and servicing roles within the insurance sector, drawing upon my extensive knowledge of various insurance products. I led by example, excelling in both driving sales initiatives and providing exceptional service to new and existing customers. Beyond typical sales responsibilities, I actively assisted customers with inquiries and policy changes, ensuring a seamless experience. Operating within a LINUX based system, I quickly adapted to new technologies, leveraging them to enhance team performance. With strong customer service skills and a knack for quick learning, I effectively helped my team to success, meeting targets and delivering unparalleled service standards.',
     accent: '#c8102e',
@@ -52,7 +52,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Mar 2022',
     end: 'Apr 2022',
     duration: '2 mos',
-    location: 'Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     summary:
       'Personal Assistant to a Sales/Operations Manager. In this role I perform a wide variety of activities like assisting in the marketing of housing events like house auctions/selling, interacting with potential buyers at open houses/auctions and door-knocking houses to obtain appraisals for potential sellers.',
     accent: '#2d6a4f',
@@ -66,7 +66,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Oct 2021',
     end: 'Dec 2021',
     duration: '3 mos',
-    location: 'Melbourne, Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     summary:
       'Conversing with citizens regarding COVID-19 inquiries (Create, modify, cancel vaccine bookings, answer and give advice regarding COVID-19) and through this I was able to further enhance my customer service skills. I learnt how to deal a wide variety of people over the phone and further honed my interpersonal skills.',
     accent: '#005eb8',
@@ -80,7 +80,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Jan 2021',
     end: 'Dec 2021',
     duration: '1 yr',
-    location: 'Melbourne, Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     summary:
       'Through the interactions with my co-workers and customers I was able to develop strong communication and problem-solving skills which gave me the ability to display great customer service. I have also learnt to perform well under pressure and can organize my time efficiently.',
     accent: '#b45309',
@@ -94,7 +94,7 @@ export const workExperience: WorkExperience[] = [
     start: 'Nov 2019',
     end: 'Aug 2020',
     duration: '10 mos',
-    location: 'Melbourne, Victoria, Australia',
+    location: 'Melbourne, VIC, AUS',
     summary:
       'I worked in store during opening hours and performed a wide variety of tasks to fulfil my job as an on-site team member. I used physical advantages like my height and strength to stock shelves with inventory, as well as using my communication and knowledge to assist customers with any questions or queries.',
     accent: '#e31837',

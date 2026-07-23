@@ -33,7 +33,7 @@ export function AppShell() {
               onToggle={() => setSidebarOpen((v) => !v)}
             />
             <span className="text-[13px] font-medium text-text-secondary">
-              Collin Ng's Portfolio... (FINAL!!!)
+              Collin Ng's Portfolio
             </span>
           </div>
           <ThemeToggle />

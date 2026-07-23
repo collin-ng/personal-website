@@ -1,22 +1,60 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { TrafficLights } from '../TrafficLights'
 import {
   workExperience,
   type WorkExperience,
 } from '../../data/experience'
+import { education, type EducationEntry } from '../../data/education'
 
 const COL_TEMPLATE =
   'minmax(0, 2.2fr) minmax(132px, 1fr) minmax(120px, 1fr)'
 
-function formatDates(job: WorkExperience) {
-  return `${job.start} – ${job.end}`
+function formatDates(start: string, end: string) {
+  return `${start} – ${end}`
 }
 
-function CompanyMonogram({
-  job,
+function NestedWindow({
+  title,
+  children,
+}: {
+  title: string
+  children: ReactNode
+}) {
+  const titleId = useId()
+
+  return (
+    <section
+      aria-labelledby={titleId}
+      className={[
+        'flex min-h-[360px] flex-col overflow-hidden',
+        'h-[min(420px,70vh)]',
+        'rounded-[18px] border border-border-subtle bg-bg-elevated shadow-[var(--shadow-soft)]',
+      ].join(' ')}
+    >
+      <div className="flex h-10 shrink-0 items-center gap-3 border-b border-border-subtle px-3">
+        <TrafficLights />
+        <p
+          id={titleId}
+          className="min-w-0 truncate text-[13px] font-medium text-text-secondary"
+        >
+          {title}
+        </p>
+      </div>
+      <div className="relative flex min-h-0 flex-1 overflow-hidden">
+        {children}
+      </div>
+    </section>
+  )
+}
+
+function Monogram({
+  initials,
+  accent,
   size = 'sm',
   selected = false,
 }: {
-  job: WorkExperience
+  initials: string
+  accent: string
   size?: 'sm' | 'lg'
   selected?: boolean
 }) {
@@ -29,12 +67,12 @@ function CompanyMonogram({
         selected ? 'ring-2 ring-offset-1 ring-offset-bg-elevated' : '',
       ].join(' ')}
       style={{
-        backgroundColor: job.accent,
-        ...(selected ? { boxShadow: `0 0 0 2px ${job.accent}55` } : {}),
+        backgroundColor: accent,
+        ...(selected ? { boxShadow: `0 0 0 2px ${accent}55` } : {}),
       }}
       aria-hidden="true"
     >
-      {job.initials}
+      {initials}
     </span>
   )
 }
@@ -78,6 +116,32 @@ function MetaRow({ label, value }: { label: string; value: string }) {
   )
 }
 
+function ColumnHeaders({
+  nameLabel = 'Name',
+}: {
+  nameLabel?: string
+}) {
+  return (
+    <div
+      className="grid shrink-0 items-center border-b border-border-subtle bg-bg-header px-2"
+      style={{ gridTemplateColumns: COL_TEMPLATE }}
+    >
+      <div className="relative flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
+        {nameLabel}
+        <ColumnDivider />
+      </div>
+      <div className="relative flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
+        <span className="truncate">Start/End Month</span>
+        <SortChevron />
+        <ColumnDivider />
+      </div>
+      <div className="flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
+        Location
+      </div>
+    </div>
+  )
+}
+
 function ExperiencePreview({
   job,
   onClose,
@@ -116,7 +180,12 @@ function ExperiencePreview({
 
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-6 md:px-6">
         <div className="flex flex-col items-center text-center">
-          <CompanyMonogram job={job} size="lg" selected />
+          <Monogram
+            initials={job.initials}
+            accent={job.accent}
+            size="lg"
+            selected
+          />
           <h2 className="mt-4 text-[17px] font-semibold tracking-tight text-text-primary">
             {job.role}
           </h2>
@@ -126,7 +195,7 @@ function ExperiencePreview({
         </div>
 
         <dl className="mt-6 rounded-[12px] border border-border-subtle bg-bg-content/60 px-4 py-2">
-          <MetaRow label="Dates" value={formatDates(job)} />
+          <MetaRow label="Dates" value={formatDates(job.start, job.end)} />
           <MetaRow label="Duration" value={job.duration} />
           <MetaRow label="Location" value={job.location} />
           {job.workMode ? (
@@ -142,6 +211,75 @@ function ExperiencePreview({
             {job.summary}
           </p>
         </div>
+      </div>
+    </div>
+  )
+}
+
+function EducationPreview({
+  entry,
+  onClose,
+  mobile,
+}: {
+  entry: EducationEntry
+  onClose: () => void
+  mobile?: boolean
+}) {
+  return (
+    <div className="flex h-full min-h-0 flex-col bg-bg-elevated">
+      <div className="flex h-10 shrink-0 items-center justify-between border-b border-border-subtle px-3">
+        {mobile ? (
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex items-center gap-1 rounded-[8px] px-1.5 py-1 text-[13px] font-medium text-text-active transition-colors hover:bg-bg-hover"
+          >
+            <BackChevron />
+            Back
+          </button>
+        ) : (
+          <span className="text-[12px] font-medium text-text-secondary">
+            Preview
+          </span>
+        )}
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-7 w-7 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-bg-hover hover:text-text-primary"
+          aria-label="Close preview"
+        >
+          <CloseIcon />
+        </button>
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 py-6 md:px-6">
+        <div className="flex flex-col items-center text-center">
+          <Monogram
+            initials={entry.initials}
+            accent={entry.accent}
+            size="lg"
+            selected
+          />
+          <h2 className="mt-4 text-[17px] font-semibold tracking-tight text-text-primary">
+            {entry.credential}
+          </h2>
+          <p className="mt-1 text-[13px] text-text-secondary">
+            {entry.institution}
+          </p>
+          {entry.note ? (
+            <p className="mt-2 max-w-[280px] text-[12px] leading-snug text-text-secondary">
+              {entry.note}
+            </p>
+          ) : null}
+        </div>
+
+        <dl className="mt-6 rounded-[12px] border border-border-subtle bg-bg-content/60 px-4 py-2">
+          <MetaRow
+            label="Dates"
+            value={formatDates(entry.start, entry.end)}
+          />
+          <MetaRow label="Location" value={entry.location} />
+        </dl>
       </div>
     </div>
   )
@@ -187,7 +325,7 @@ function CloseIcon() {
   )
 }
 
-export function ExperienceFinder() {
+function WorkExperiencePane() {
   const listId = useId()
   const listRef = useRef<HTMLDivElement>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -257,37 +395,18 @@ export function ExperienceFinder() {
   const showPreview = previewOpen && selected != null
 
   return (
-    <div className="relative flex min-h-0 flex-1 overflow-hidden">
-      {/* List pane */}
+    <>
       <div
         ref={listRef}
         className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden outline-none"
         tabIndex={0}
         role="listbox"
-        aria-label="Work experience"
+        aria-label="Work Experience"
         aria-activedescendant={
           selectedId ? `${listId}-${selectedId}` : undefined
         }
       >
-        {/* Column headers */}
-        <div
-          className="grid shrink-0 items-center border-b border-border-subtle bg-bg-header px-2"
-          style={{ gridTemplateColumns: COL_TEMPLATE }}
-        >
-          <div className="relative flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
-            Name
-            <ColumnDivider />
-          </div>
-          <div className="relative flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
-            <span className="truncate">Start/End Month</span>
-            <SortChevron />
-            <ColumnDivider />
-          </div>
-          <div className="flex h-8 items-center px-2 text-[12px] font-medium text-text-secondary">
-            Location
-          </div>
-        </div>
-
+        <ColumnHeaders />
         <div className="min-h-0 flex-1 overflow-y-auto px-1.5 py-1.5">
           {workExperience.map((job, index) => {
             const isSelected = selectedId === job.id
@@ -311,7 +430,11 @@ export function ExperienceFinder() {
                 style={{ gridTemplateColumns: COL_TEMPLATE }}
               >
                 <span className="flex min-w-0 items-center gap-2.5 pr-2">
-                  <CompanyMonogram job={job} selected={isSelected} />
+                  <Monogram
+                    initials={job.initials}
+                    accent={job.accent}
+                    selected={isSelected}
+                  />
                   <span
                     className={[
                       'truncate text-[13px]',
@@ -327,7 +450,7 @@ export function ExperienceFinder() {
                     isSelected ? 'text-text-active' : 'text-text-secondary',
                   ].join(' ')}
                 >
-                  {formatDates(job)}
+                  {formatDates(job.start, job.end)}
                 </span>
                 <span
                   className={[
@@ -343,7 +466,6 @@ export function ExperienceFinder() {
         </div>
       </div>
 
-      {/* Desktop preview pane */}
       <div
         className={[
           'hidden min-h-0 shrink-0 overflow-hidden border-l border-border-subtle md:block',
@@ -359,12 +481,203 @@ export function ExperienceFinder() {
         ) : null}
       </div>
 
-      {/* Mobile preview overlay */}
       {showPreview && selected ? (
         <div className="absolute inset-0 z-10 md:hidden">
           <ExperiencePreview job={selected} onClose={closePreview} mobile />
         </div>
       ) : null}
+    </>
+  )
+}
+
+function FormalEducationPane() {
+  const listId = useId()
+  const listRef = useRef<HTMLDivElement>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [previewOpen, setPreviewOpen] = useState(false)
+
+  const selected =
+    selectedId != null
+      ? (education.find((e) => e.id === selectedId) ?? null)
+      : null
+
+  function selectEntry(id: string) {
+    if (selectedId === id && previewOpen) {
+      setPreviewOpen(false)
+      return
+    }
+    setSelectedId(id)
+    setPreviewOpen(true)
+  }
+
+  function closePreview() {
+    setPreviewOpen(false)
+  }
+
+  useEffect(() => {
+    const node = listRef.current
+    if (!node) return
+
+    function moveSelection(delta: number) {
+      const currentIndex = selectedId
+        ? education.findIndex((e) => e.id === selectedId)
+        : -1
+      const nextIndex =
+        currentIndex < 0
+          ? delta > 0
+            ? 0
+            : education.length - 1
+          : Math.min(
+              education.length - 1,
+              Math.max(0, currentIndex + delta),
+            )
+      const next = education[nextIndex]
+      if (!next) return
+      setSelectedId(next.id)
+      setPreviewOpen(true)
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        moveSelection(1)
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        moveSelection(-1)
+      } else if (event.key === 'Enter' && selectedId) {
+        event.preventDefault()
+        setPreviewOpen(true)
+      } else if (event.key === 'Escape' && previewOpen) {
+        event.preventDefault()
+        setPreviewOpen(false)
+      }
+    }
+
+    node.addEventListener('keydown', onKeyDown)
+    return () => node.removeEventListener('keydown', onKeyDown)
+  }, [selectedId, previewOpen])
+
+  const showPreview = previewOpen && selected != null
+
+  return (
+    <>
+      <div
+        ref={listRef}
+        className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden outline-none"
+        tabIndex={0}
+        role="listbox"
+        aria-label="Formal Education"
+        aria-activedescendant={
+          selectedId ? `${listId}-${selectedId}` : undefined
+        }
+      >
+        <ColumnHeaders nameLabel="Credential" />
+        <div className="min-h-0 flex-1 overflow-y-auto px-1.5 py-1.5">
+          {education.map((entry, index) => {
+            const isSelected = selectedId === entry.id
+            const zebra = index % 2 === 1
+            return (
+              <button
+                key={entry.id}
+                id={`${listId}-${entry.id}`}
+                type="button"
+                role="option"
+                aria-selected={isSelected}
+                onClick={() => selectEntry(entry.id)}
+                className={[
+                  'grid w-full items-center rounded-[11px] px-2 py-1.5 text-left transition-colors duration-150 ease-out',
+                  isSelected
+                    ? 'bg-bg-selected text-text-active'
+                    : zebra
+                      ? 'bg-bg-stripe text-text-primary hover:bg-bg-hover'
+                      : 'text-text-primary hover:bg-bg-hover',
+                ].join(' ')}
+                style={{ gridTemplateColumns: COL_TEMPLATE }}
+              >
+                <span className="flex min-w-0 items-center gap-2.5 pr-2">
+                  <Monogram
+                    initials={entry.initials}
+                    accent={entry.accent}
+                    selected={isSelected}
+                  />
+                  <span className="min-w-0">
+                    <span
+                      className={[
+                        'block truncate text-[13px]',
+                        isSelected ? 'font-semibold' : 'font-medium',
+                      ].join(' ')}
+                    >
+                      {entry.credential}
+                    </span>
+                    <span
+                      className={[
+                        'block truncate text-[11px]',
+                        isSelected
+                          ? 'text-text-active/80'
+                          : 'text-text-secondary',
+                      ].join(' ')}
+                    >
+                      {entry.institution}
+                    </span>
+                  </span>
+                </span>
+                <span
+                  className={[
+                    'truncate px-2 text-[12px]',
+                    isSelected ? 'text-text-active' : 'text-text-secondary',
+                  ].join(' ')}
+                >
+                  {formatDates(entry.start, entry.end)}
+                </span>
+                <span
+                  className={[
+                    'truncate px-2 text-[12px]',
+                    isSelected ? 'text-text-active' : 'text-text-secondary',
+                  ].join(' ')}
+                >
+                  {entry.location}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <div
+        className={[
+          'hidden min-h-0 shrink-0 overflow-hidden border-l border-border-subtle md:block',
+          'transition-[width,opacity] duration-200 ease-out motion-reduce:transition-none',
+          showPreview ? 'w-[40%] opacity-100' : 'w-0 opacity-0',
+        ].join(' ')}
+        aria-hidden={!showPreview}
+      >
+        {selected ? (
+          <div className="h-full min-w-[280px]">
+            <EducationPreview entry={selected} onClose={closePreview} />
+          </div>
+        ) : null}
+      </div>
+
+      {showPreview && selected ? (
+        <div className="absolute inset-0 z-10 md:hidden">
+          <EducationPreview entry={selected} onClose={closePreview} mobile />
+        </div>
+      ) : null}
+    </>
+  )
+}
+
+export function ExperienceFinder() {
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto bg-bg-content px-4 py-5 md:px-6 md:py-6">
+      <div className="mx-auto flex w-full max-w-[960px] flex-col gap-5">
+        <NestedWindow title="Work Experience">
+          <WorkExperiencePane />
+        </NestedWindow>
+        <NestedWindow title="Formal Education">
+          <FormalEducationPane />
+        </NestedWindow>
+      </div>
     </div>
   )
 }
