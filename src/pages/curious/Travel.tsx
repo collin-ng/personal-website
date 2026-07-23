@@ -1,9 +1,9 @@
 import { PlaceholderPage } from '../PlaceholderPage'
 
-export function PhotosPage() {
+export function TravelPage() {
   return (
     <PlaceholderPage
-      title="Photos"
+      title="Travel"
       description="A small gallery of places and moments. Content coming soon."
     />
   )

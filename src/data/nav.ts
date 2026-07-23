@@ -10,18 +10,29 @@ export const navTree: NavItem[] = [
     id: 'recruiters',
     label: 'For Recruiters',
     children: [
-      { id: 'recruiters-resume', label: 'Resume', path: '/recruiters/resume' },
+      {
+        id: 'recruiters-projects',
+        label: 'Projects',
+        children: [
+          {
+            id: 'recruiters-projects-zl-gamsat',
+            label: 'ZL Gamsat',
+            path: '/recruiters/projects/zl-gamsat',
+          },
+          {
+            id: 'recruiters-projects-bitematch',
+            label: 'BiteMatch',
+            path: '/recruiters/projects/bitematch',
+          },
+        ],
+      },
       {
         id: 'recruiters-experience',
         label: 'Experience and Education',
         path: '/recruiters/experience',
       },
-      {
-        id: 'recruiters-projects',
-        label: 'Projects',
-        path: '/recruiters/projects',
-      },
       { id: 'recruiters-skills', label: 'Skills', path: '/recruiters/skills' },
+      { id: 'recruiters-resume', label: 'Resume', path: '/recruiters/resume' },
       {
         id: 'recruiters-contact',
         label: 'Contact',
@@ -34,14 +45,12 @@ export const navTree: NavItem[] = [
     label: 'For Curious Humans',
     children: [
       { id: 'curious-about', label: 'About', path: '/curious/about' },
-      { id: 'curious-notes', label: 'Notes', path: '/curious/notes' },
-      { id: 'curious-photos', label: 'Photos', path: '/curious/photos' },
-      { id: 'curious-reading', label: 'Reading', path: '/curious/reading' },
+      { id: 'curious-travel', label: 'Travel', path: '/curious/travel' },
     ],
   },
   {
     id: 'consciousness',
-    label: 'Talk to my consciousness',
+    label: 'Talk To My Consciousness',
     children: [
       {
         id: 'consciousness-chat',
