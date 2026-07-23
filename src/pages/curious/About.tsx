@@ -27,7 +27,7 @@ export function AboutPage() {
         Collin Ng
       </h1>
       <p className="mt-4 text-[15px] leading-[1.6] text-text-primary">
-        I'm a computer science graduate who always looking to learn new things.
+        I'm a computer science graduate who's always looking to learn new things.
       </p>
       <p className="mt-3 text-[15px] leading-[1.6] text-text-secondary">
         Some hobbies of mine include playing basketball in a mens league,

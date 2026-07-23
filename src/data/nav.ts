@@ -66,7 +66,7 @@ export const navTree: NavItem[] = [
   },
 ]
 
-export const DEFAULT_PATH = '/recruiters/resume'
+export const DEFAULT_PATH = '/curious/about'
 
 /** Return ancestor folder ids for the active pathname. */
 export function getAncestorIds(
