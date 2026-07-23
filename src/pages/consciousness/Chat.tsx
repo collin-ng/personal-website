@@ -6,8 +6,7 @@ export function ChatPage() {
           Chat
         </h1>
         <p className="mt-3 text-[15px] leading-[1.6] text-text-secondary">
-          Talk to a lightweight model of my consciousness. The conversation
-          backend is not wired up yet — this is a UI placeholder.
+          Talk to a lightweight model of my consciousness. Still a work in progress...
         </p>
       </div>
 

@@ -4,7 +4,7 @@ export function AboutThisPage() {
   return (
     <PlaceholderPage
       title="About this"
-      description="What “talk to my consciousness” means, how it will work, and what it will not do. Content coming soon."
+      description="How it works, what to prompt, etc. Still a work in progress..."
     />
   )
 }
