@@ -1,33 +1,36 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { ContentWindow } from '../components/ContentWindow'
 import { MobileNavToggle } from '../components/MobileNavToggle'
-import { PathBar } from '../components/PathBar'
 import { Sidebar } from '../components/Sidebar'
 import { ThemeToggle } from '../components/ThemeToggle'
+import { TrafficLights } from '../components/TrafficLights'
+import { getBreadcrumbLabels } from '../data/nav'
 
 const SIDEBAR_WIDTH = 268
 
 export function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { pathname } = useLocation()
+  const breadcrumb = getBreadcrumbLabels(pathname)
+  const contentTitle =
+    breadcrumb.length > 0 ? breadcrumb.join(' / ') : 'Portfolio'
 
   useEffect(() => {
     setSidebarOpen(false)
   }, [pathname])
 
   return (
-    <div className="min-h-full bg-bg-app p-0 text-text-primary lg:p-4">
-      <div
-        className="flex h-dvh min-h-0 flex-col overflow-hidden border-0 bg-transparent lg:h-[calc(100dvh-2rem)] lg:rounded-[22px] lg:border lg:border-border-subtle lg:bg-bg-content lg:shadow-[var(--shadow-soft)]"
-      >
-        {/* Desktop chrome */}
-        <div className="hidden h-11 shrink-0 items-center justify-between border-b border-border-subtle px-4 lg:flex">
+    <div className="min-h-full bg-bg-app p-2 text-text-primary sm:p-3 lg:p-4">
+      <div className="flex h-[calc(100dvh-1rem)] min-h-0 flex-col overflow-hidden rounded-[22px] border border-border-subtle bg-bg-content shadow-[var(--shadow-soft)] sm:h-[calc(100dvh-1.5rem)] lg:h-[calc(100dvh-2rem)]">
+        {/* Outer window chrome */}
+        <div className="flex h-11 shrink-0 items-center justify-between border-b border-border-subtle px-4">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5" aria-hidden="true">
-              <span className="size-3 rounded-full bg-[#FF5F57]" />
-              <span className="size-3 rounded-full bg-[#FEBC2E]" />
-              <span className="size-3 rounded-full bg-[#28C840]" />
-            </div>
+            <TrafficLights />
+            <MobileNavToggle
+              open={sidebarOpen}
+              onToggle={() => setSidebarOpen((v) => !v)}
+            />
             <span className="text-[13px] font-medium text-text-secondary">
               Portfolio
             </span>
@@ -35,7 +38,7 @@ export function AppShell() {
           <ThemeToggle />
         </div>
 
-        <div className="relative flex min-h-0 flex-1">
+        <div className="relative flex min-h-0 flex-1 overflow-hidden">
           {/* Desktop sidebar */}
           <aside
             className="hidden shrink-0 border-r border-border-subtle bg-bg-sidebar lg:block"
@@ -48,7 +51,7 @@ export function AppShell() {
           {sidebarOpen && (
             <button
               type="button"
-              className="fixed inset-0 z-40 bg-[#1C2430]/20 lg:hidden"
+              className="absolute inset-0 z-40 bg-[#1C2430]/20 lg:hidden"
               aria-label="Dismiss sidebar"
               onClick={() => setSidebarOpen(false)}
             />
@@ -57,7 +60,7 @@ export function AppShell() {
           {/* Mobile / tablet drawer */}
           <aside
             className={[
-              'fixed inset-y-0 left-0 z-50 rounded-r-[20px] border-r border-border-subtle bg-bg-sidebar shadow-[var(--shadow-soft)] transition-transform duration-200 ease-out lg:hidden',
+              'absolute inset-y-0 left-0 z-50 rounded-r-[20px] border-r border-border-subtle bg-bg-sidebar shadow-[var(--shadow-soft)] transition-transform duration-200 ease-out lg:hidden',
               sidebarOpen ? 'translate-x-0' : '-translate-x-full',
             ].join(' ')}
             style={{ width: SIDEBAR_WIDTH }}
@@ -65,23 +68,11 @@ export function AppShell() {
             <Sidebar onNavigate={() => setSidebarOpen(false)} />
           </aside>
 
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-bg-content">
-            <header className="flex h-12 shrink-0 items-center gap-3 border-b border-border-subtle px-4 lg:hidden">
-              <MobileNavToggle
-                open={sidebarOpen}
-                onToggle={() => setSidebarOpen((v) => !v)}
-              />
-              <span className="flex-1 text-sm font-medium text-text-primary">
-                Portfolio
-              </span>
-              <ThemeToggle />
-            </header>
-
-            <PathBar />
-
-            <main className="flex-1 overflow-y-auto px-6 py-6 md:px-8 md:py-8">
+          {/* Content desk + inner window */}
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-bg-sidebar p-3 md:p-4">
+            <ContentWindow title={contentTitle}>
               <Outlet />
-            </main>
+            </ContentWindow>
           </div>
         </div>
       </div>

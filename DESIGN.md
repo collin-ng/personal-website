@@ -114,8 +114,7 @@ Still blue-tinted — **night sky / blue charcoal**, not pure black or generic g
 ### Theme toggle (chrome bar)
 - **Control:** iOS-style switch (pill track + white thumb) with static label **“Dark Mode”** (title case, two words — system-settings style, not “Darkmode”)
 - **Label style:** `12px`, medium weight, `--text-secondary`; sits to the **left** of the switch
-- **Placement (desktop):** left cluster = traffic lights + “Portfolio”; right = Dark Mode control
-- **Placement (mobile):** “Portfolio” near menu; Dark Mode control on the right
+- **Placement (all breakpoints):** left cluster = traffic lights + (mobile: Browse toggle) + “Portfolio”; right = Dark Mode control
 - **Behavior:** toggles `light` / `dark`; persists in `localStorage` (`portfolio-theme`); respects `prefers-color-scheme` on first visit
 - **On (dark):** track `#34C759` (iOS green); thumb slides right
 - **Off (light):** track `#D1D5DB` (light) / slightly darker gray in dark UI; thumb slides left
@@ -139,6 +138,7 @@ Still blue-tinted — **night sky / blue charcoal**, not pure black or generic g
 | Element | Radius |
 |---------|--------|
 | App shell / outer window | `20px`–`24px` |
+| Inner content window | `18px`–`20px` (slightly smaller than outer) |
 | Sidebar container (if inset) | `16px`–`20px` |
 | Main content card | `16px`–`20px` |
 | Nav row (hover/selected pill) | `10px`–`12px` (full pill feel) |
@@ -153,33 +153,51 @@ Still blue-tinted — **night sky / blue charcoal**, not pure black or generic g
 
 ## 5. Layout
 
+### Nested windows (core structure)
+
+```
+Outer window (Portfolio + Dark Mode)
+├─ Sidebar
+└─ Content “desk”
+   └─ Inner window (traffic lights + path/title)
+      └─ Page content (scrollable)
+```
+
+The outer shell is the Portfolio “app.” The right column is a soft **desk** (not a flat content fill). Page content lives in a raised **inner content window** that reuses the same chrome language (decorative traffic lights, thin title bar, rounded corners).
+
 ### Desktop (≥ 1024px)
 ```
-┌──────────────────────────────────────────────────────────┐
-│  optional thin top bar / traffic lights + title          │
-├────────────────┬─────────────────────────────────────────┤
-│                │  Path: For Recruiters / Projects          │
-│   SIDEBAR      │─────────────────────────────────────────│
-│   ~260–280px   │                                         │
-│                │           MAIN CONTENT                  │
-│  folders…      │           (scrollable)                  │
-│                │                                         │
-└────────────────┴─────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│  traffic lights + Portfolio                    Dark Mode    │
+├────────────────┬───────────────────────────────────────────┤
+│                │  desk (inset padding)                     │
+│   SIDEBAR      │  ┌─────────────────────────────────────┐  │
+│   ~260–280px   │  │ ● ● ●  For Recruiters / Projects    │  │
+│                │  ├─────────────────────────────────────┤  │
+│  folders…      │  │                                     │  │
+│                │  │         INNER CONTENT WINDOW        │  │
+│                │  │         (scrollable body)           │  │
+│                │  │                                     │  │
+│                │  └─────────────────────────────────────┘  │
+└────────────────┴───────────────────────────────────────────┘
 ```
 
 - **Sidebar width:** `260px`–`280px`, fixed
-- **App padding:** outer margin so the “window” floats slightly on `--bg-app` (e.g. `12px`–`16px` on large screens)
+- **App padding:** outer margin so the “window” floats slightly on `--bg-app` (`8px` mobile → `12px`–`16px` large)
 - **Sidebar | content split:** 1px subtle border or soft shadow, not a harsh line
-- **Main pane:** padded content (`24px`–`32px`); max readable width for text ~ `680px`–`720px` where it helps; cards can be wider
+- **Content desk:** `--bg-sidebar` (or matching desk tint), modest inset padding (`12px`–`16px`)
+- **Inner window body:** padded content (`24px`–`32px`); max readable width for text ~ `680px`–`720px` where it helps; cards can be wider
+- **Scroll:** lives **inside** the inner window body, not on the desk
 
 ### Mobile (< 768px)
+- Same floating rounded outer window + traffic-light chrome as desktop (tighter outer padding)
 - Sidebar hidden by default
-- Hamburger / “Browse” opens drawer (same Finder list)
-- Main content full width
+- Hamburger / “Browse” in the **outer** chrome bar opens drawer (same Finder list), constrained inside the outer window
+- Inner content window fills the desk (full width within the outer window)
 - No tiny permanent left rail
 
 ### Tablet (768–1023px)
-- Collapsible sidebar or narrower `220px` rail — pick one and stay consistent
+- Same window chrome as mobile/desktop; collapsible drawer sidebar (same as mobile)
 
 ---
 
@@ -253,7 +271,8 @@ Avoid random values like `17px`, `13px` unless optical alignment needs 1–2px.
 ## 9. Elevation & borders
 
 - Prefer **soft shadow + light border** over heavy drop shadows
-- Content area can sit as a raised white/blue-white card on the tinted app background
+- **Outer window** floats on `--bg-app` with soft shadow
+- **Inner content window** sits elevated on the desk (`--bg-elevated` surface, `--border-subtle`, soft shadow) — same elevation language as the outer shell, one level nested
 - Sidebar can be flat on the tinted ground or a slightly different tint — keep contrast low and elegant
 - No double borders, no thick outlines
 
@@ -291,9 +310,18 @@ One signature delight later is fine; default UI stays quiet.
 ### Chips / status
 - Soft blue background (`--accent-soft`), blue text, pill radius
 
-### Main path bar
-- Shows current location: `For Recruiters / Projects`
-- Muted text; acts like Finder’s title/path, not a second nav
+### Outer window chrome
+- Traffic lights (decorative) + “Portfolio” title + Dark Mode toggle
+- Radius `20px`–`24px`; border + soft shadow on `--bg-content`
+
+### Inner content window (`ContentWindow`)
+- **Chrome:** decorative traffic lights (same hex as outer; `aria-hidden`) + title
+- **Title:** full breadcrumb path, e.g. `For Recruiters / Contact` — replaces a separate PathBar strip
+- **Surface:** `--bg-elevated`, border `--border-subtle`, soft shadow
+- **Radius:** `18px`–`20px` (slightly smaller than outer)
+- **Chrome bar:** ~`h-10`–`h-11`; title `13px`, medium, `--text-secondary`, truncate
+- **Body:** scrollable; page content (`Outlet`) only — no second Dark Mode control
+- Applies to **all** routes under the shell (including Chat)
 
 ### Chat UI (later — Consciousness)
 - Same radius language
@@ -351,7 +379,9 @@ No fake metrics. No “10x engineer” energy.
 
 ### File touch targets (typical)
 - `src/index.css` — tokens, base body background
-- `src/layouts/AppShell.tsx` — window chrome, radii, split layout
+- `src/layouts/AppShell.tsx` — outer window chrome, desk, split layout
+- `src/components/TrafficLights.tsx` — shared decorative traffic lights
+- `src/components/ContentWindow.tsx` — inner nested content window
 - `src/components/Sidebar.tsx` / `SidebarItem.tsx` — row states
 - Page components — cards and content only after shell is right
 

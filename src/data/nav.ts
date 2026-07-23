@@ -88,7 +88,7 @@ export function getLeafPaths(items: NavItem[] = navTree): string[] {
   return paths
 }
 
-/** Labels for the path bar, e.g. ["For Recruiters", "Projects"]. */
+/** Labels for the content window title, e.g. ["For Recruiters", "Projects"]. */
 export function getBreadcrumbLabels(
   pathname: string,
   items: NavItem[] = navTree,
