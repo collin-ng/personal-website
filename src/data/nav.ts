@@ -48,22 +48,23 @@ export const navTree: NavItem[] = [
       { id: 'curious-travel', label: 'Travel', path: '/curious/travel' },
     ],
   },
-  {
-    id: 'consciousness',
-    label: 'Talk To My Consciousness',
-    children: [
-      {
-        id: 'consciousness-chat',
-        label: 'Chat',
-        path: '/consciousness/chat',
-      },
-      {
-        id: 'consciousness-about',
-        label: 'About this',
-        path: '/consciousness/about',
-      },
-    ],
-  },
+  // Temporarily disabled — not actively working on this section
+  // {
+  //   id: 'consciousness',
+  //   label: 'Talk To My Consciousness',
+  //   children: [
+  //     {
+  //       id: 'consciousness-chat',
+  //       label: 'Chat',
+  //       path: '/consciousness/chat',
+  //     },
+  //     {
+  //       id: 'consciousness-about',
+  //       label: 'About this',
+  //       path: '/consciousness/about',
+  //     },
+  //   ],
+  // },
 ]
 
 export const DEFAULT_PATH = '/curious/about'

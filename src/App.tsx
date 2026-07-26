@@ -2,8 +2,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { DEFAULT_PATH } from './data/nav'
 import { AppShell } from './layouts/AppShell'
 import { ThemeProvider } from './theme/ThemeProvider'
-import { AboutThisPage } from './pages/consciousness/AboutThis'
-import { ChatPage } from './pages/consciousness/Chat'
+// Temporarily disabled — not actively working on this section
+// import { AboutThisPage } from './pages/consciousness/AboutThis'
+// import { ChatPage } from './pages/consciousness/Chat'
 import { AboutPage } from './pages/curious/About'
 import { TravelPage } from './pages/curious/Travel'
 import { ContactPage } from './pages/recruiters/Contact'
@@ -38,8 +39,9 @@ export default function App() {
             <Route path="recruiters/contact" element={<ContactPage />} />
             <Route path="curious/about" element={<AboutPage />} />
             <Route path="curious/travel" element={<TravelPage />} />
-            <Route path="consciousness/chat" element={<ChatPage />} />
-            <Route path="consciousness/about" element={<AboutThisPage />} />
+            {/* Temporarily disabled — not actively working on this section */}
+            {/* <Route path="consciousness/chat" element={<ChatPage />} /> */}
+            {/* <Route path="consciousness/about" element={<AboutThisPage />} /> */}
             <Route path="*" element={<Navigate to={DEFAULT_PATH} replace />} />
           </Route>
         </Routes>
