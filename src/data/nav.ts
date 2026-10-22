@@ -42,7 +42,7 @@ export const navTree: NavItem[] = [
   },
   {
     id: 'curious',
-    label: 'For Curious Humans',
+    label: 'About Me',
     children: [
       { id: 'curious-about', label: 'About', path: '/curious/about' },
       { id: 'curious-travel', label: 'Travel', path: '/curious/travel' },
