@@ -25,6 +25,13 @@ const connections: Connection[] = [
     value: 'ngcollin13@gmail.com',
   },
   {
+    id: 'phone',
+    label: 'Phone',
+    detail: '+61 481 007 384',
+    action: 'copy',
+    value: '+61481007384',
+  },
+  {
     id: 'linkedin',
     label: 'LinkedIn Profile',
     detail: 'collin-ng',
@@ -69,7 +76,7 @@ function CopyButton({ value }: { value: string }) {
       type="button"
       onClick={handleCopy}
       className={actionPillClass}
-      aria-label={copied ? 'Copied email' : 'Copy email'}
+      aria-label={copied ? 'Copied' : 'Copy'}
     >
       <span className="inline-block transition-opacity duration-150">
         {copied ? 'Copied' : 'Copy'}
