@@ -2,16 +2,8 @@ import resumeIcon from './resume-image.png'
 
 const documents = [
   {
-    label: 'Tech Role Resume',
-    href: '/docs/Resume%20-%20Collin%20Ng%20(Tech).pdf',
-  },
-  {
-    label: 'General Role Resume',
-    href: '/docs/Resume%20-%20Collin%20Ng%20(General).pdf',
-  },
-  {
-    label: 'General Cover Letter',
-    href: '/docs/CV%20-%20Collin%20Ng%20(General).pdf',
+    label: 'Resume',
+    href: '/docs/Resume%20-%20Collin%20Ng.pdf',
   },
 ] as const
 
@@ -27,7 +19,7 @@ export function ResumePage() {
           className="size-[120px] rounded-[22px] shadow-[var(--shadow-soft)] md:size-[140px]"
         />
         <h1 className="mt-5 text-[32px] font-semibold tracking-tight text-text-primary md:text-[36px]">
-          My Resumes
+          My Resume
         </h1>
       </div>
 
